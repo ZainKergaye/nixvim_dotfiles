@@ -1,0 +1,3 @@
+# Nixvim dotfiles
+
+These are my dotfiles for nixvim. Feel free to pick any modules that you might like. Everything is pretty plug-n-play. Better readme coming soon...
