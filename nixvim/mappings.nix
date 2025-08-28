@@ -174,6 +174,34 @@
       options.desc = "Git blame";
     }
 
+    {
+      key = "<Leader>gsa";
+      action = ":Git stage .<CR>";
+      mode = "n";
+      options.desc = "Git stage all";
+    }
+
+    {
+      key = "<Leader>go";
+      action = ":Git commit<CR>";
+      mode = "n";
+      options.desc = "Git commit";
+    }
+
+    {
+      key = "<Leader>gpu";
+      action = ":Git push<CR>";
+      mode = "n";
+      options.desc = "Git push";
+    }
+
+    {
+      key = "<Leader>gpl";
+      action = ":Git pull<CR>";
+      mode = "n";
+      options.desc = "Git pull";
+    }
+
     # Tree
     {
       key = "<Leader>e";

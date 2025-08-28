@@ -4,19 +4,11 @@
       enable = true;
       settings = {
         optionstheme = "horizon";
-        settings.options.disabled_filetypes =
-          let
-            disabled = [
-              "NvimTree"
-              "NVimTree"
-              "NvimTree_1 "
-              "toggleterm"
-            ];
-          in
-          {
-            statusline = disabled;
-            winbar = disabled;
-          };
+        settings.extensions = [
+          "nvim-dap-ui"
+          "nvim-tree" # TODO:
+          "toggleterm"
+        ];
       };
     };
 
