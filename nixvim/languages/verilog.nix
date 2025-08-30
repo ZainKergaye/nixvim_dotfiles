@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [
+  extraPackages = with pkgs; [
     verible
   ];
   programs.nixvim.plugins = {
@@ -19,7 +19,10 @@
                 -unpacked-dimensions-range-ordering
               '';
         in
-        [ "${pkgs.verible}/bin/verible-verilog-ls" "--rules_config ${rules}" ];
+        [
+          "${pkgs.verible}/bin/verible-verilog-ls"
+          "--rules_config ${rules}"
+        ];
     };
     none-ls.sources.formatting.verible_verilog_format.enable = true;
     # NOTE: DOES NOT WORK

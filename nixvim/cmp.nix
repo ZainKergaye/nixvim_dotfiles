@@ -76,12 +76,12 @@
     }
   ];
 
-  # home.packages = with pkgs; [
-  #   alejandra
-  #   nixpkgs-fmt
-  #   prettierd
-  #   nixfmt-classic
-  #   stylua
-  #   vimPlugins.luasnip
-  # ];
+  extraPackages = with pkgs; [
+    alejandra
+    nixpkgs-fmt
+    prettierd
+    nixfmt-classic
+    stylua
+    vimPlugins.luasnip
+  ];
 }

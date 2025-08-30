@@ -3,10 +3,10 @@
     lualine = {
       enable = true;
       settings = {
-        optionstheme = "horizon";
-        settings.extensions = [
+        options.theme = "tomorrow_night";
+        extensions = [
           "nvim-dap-ui"
-          "nvim-tree" # TODO:
+          "nvim-tree"
           "toggleterm"
         ];
       };
@@ -48,23 +48,23 @@
         };
         renderer = {
           # TODO: Fix this
-          #highlightGit = true;
-          #rootFolderLabel = false;
-          # indentMarkers = {
-          #   enable = true;
-          #   icons = {
-          #     bottom = "─";
-          #     edge = "│";
-          #     corner = "╰";
-          #   };
-          # };
+          highlight_git = true;
+          root_folder_label = false;
+          indent_markers = {
+            enable = true;
+            icons = {
+              bottom = "─";
+              edge = "│";
+              corner = "╰";
+            };
+          };
           icons = {
             glyphs = {
               default = "󰈚 ";
               folder = {
                 default = " ";
                 empty = " ";
-                #emptyOpen = " ";
+                empty_open = " ";
                 open = " ";
                 symlink = " ";
               };
@@ -75,7 +75,7 @@
           };
         };
         view.side = "right";
-        #hijackCursor = true;
+        hijack_cursor = true;
       };
     };
     bufdelete.enable = true; # Replacement for bdelete that keeps windows intact

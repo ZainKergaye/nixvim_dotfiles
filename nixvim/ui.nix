@@ -42,11 +42,11 @@
     colorizer = {
       enable = true;
       settings.user_default_options.names = false;
-      settings.filetypes = [ "css" "scss" ];
+      settings.filetypes = [
+        "css"
+        "scss"
+      ];
     };
-
-    # BUG: I gotta do something with this to support tmux
-    image.enable = false; # image support
 
     illuminate = {
       enable = true; # Used to illuminate same words
