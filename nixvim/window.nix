@@ -3,7 +3,7 @@
     lualine = {
       enable = true;
       settings = {
-        options.theme = "tomorrow_night";
+        options.theme = "auto";
         extensions = [
           "nvim-dap-ui"
           "nvim-tree"
