@@ -1,8 +1,7 @@
-{ ... }:
-{
+{ ... }: {
   imports = [
     #./csharp.nix
-    #./verilog.nix
+    ./verilog.nix
     #./kotlin.nix
     ./c.nix
     ./lua.nix

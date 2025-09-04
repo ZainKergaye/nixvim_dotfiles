@@ -16,35 +16,42 @@
 
   # Ability to toggle cmp
   extraConfigLua = ''
-      local format_enabled = true
-      vim.api.nvim_create_user_command(
-          "ToggleFormatNotified",
-          function()
-              if format_enabled then
-                  vim.cmd("FormatDisable")
-                  require("notify")("Disabled formatting")
-                  format_enabled = false
-              else
-                  vim.cmd("FormatEnable")
-                  require("notify")("Enabled formatting")
-                  format_enabled = true
-              end
-          end,
-          {}
-      )
+    local format_enabled = true
+    vim.api.nvim_create_user_command(
+        "ToggleFormatNotified",
+        function()
+            if format_enabled then
+                vim.cmd("FormatDisable")
+                require("notify")("Disabled formatting")
+                format_enabled = false
+            else
+                vim.cmd("FormatEnable")
+                require("notify")("Enabled formatting")
+                format_enabled = true
+            end
+        end,
+        {}
+    )
 
-    --   vim.diagnostic.config(
-    --       {
-    --           virtual_text = false,
-    --           float = {border = "rounded"}
-    --       }
-    --   )
-    --
-    --   vim.o.updatetime = 250
-    --   vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
-    --   vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335 guifg=#abb2bf]])
-    --
-    -- '';
+    vim.diagnostic.config(
+        {
+            virtual_text = false,
+            float = {border = "rounded"}
+        }
+    )
+
+    vim.o.updatetime = 250
+    vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]])
+    vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335 guifg=#abb2bf]])
+  '';
+
+  # vim.cmd([[
+  #   autocmd BufLeave * lua for _, win in ipairs(vim.api.nvim_list_wins()) do
+  # 	    if vim.api.nvim_win_get_config(win).relative ~= '\' then
+  # 	      vim.api.nvim_win_close(win, true)
+  #     end
+  #   end
+  # ]])
   keymaps = [
     {
       key = "<leader>fm";

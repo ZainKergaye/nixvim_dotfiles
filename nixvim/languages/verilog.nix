@@ -2,7 +2,7 @@
   extraPackages = with pkgs; [
     verible
   ];
-  programs.nixvim.plugins = {
+  plugins = {
     lsp.servers.verible = {
       enable = true;
       cmd =
@@ -21,7 +21,7 @@
         in
         [
           "${pkgs.verible}/bin/verible-verilog-ls"
-          "--rules_config ${rules}"
+          "--rules_config_search"
         ];
     };
     none-ls.sources.formatting.verible_verilog_format.enable = true;
