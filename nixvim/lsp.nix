@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   plugins = {
     lsp = {
       enable = true;
@@ -45,12 +46,12 @@
        -- vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]])
 
 
-			 local diagnostic_float_win = nil
+    local diagnostic_float_win = nil
 
-			 -- Open diagnostic float on CursorHold
-			 vim.api.nvim_create_autocmd("CursorHold", { callback = function() if diagnostic_float_win == nil or not vim.api.nvim_win_is_valid(diagnostic_float_win) then diagnostic_float_win = vim.diagnostic.open_float(nil, {focus = false}) end end, })
+    -- Open diagnostic float on CursorHold
+    vim.api.nvim_create_autocmd("CursorHold", { callback = function() if diagnostic_float_win == nil or not vim.api.nvim_win_is_valid(diagnostic_float_win) then diagnostic_float_win = vim.diagnostic.open_float(nil, {focus = false}) end end, })
 
-			 -- Close diagnostic float on any window/buffer leave or cursor move vim.api.nvim_create_autocmd({ "CursorMoved", "WinLeave", "BufWinLeave", "BufLeave", "FocusLost" }, { callback = function() if diagnostic_float_win and vim.api.nvim_win_is_valid(diagnostic_float_win) then vim.api.nvim_win_close(diagnostic_float_win, true) diagnostic_float_win = nil end end, })
+    -- Close diagnostic float on any window/buffer leave or cursor move vim.api.nvim_create_autocmd({ "CursorMoved", "WinLeave", "BufWinLeave", "BufLeave", "FocusLost" }, { callback = function() if diagnostic_float_win and vim.api.nvim_win_is_valid(diagnostic_float_win) then vim.api.nvim_win_close(diagnostic_float_win, true) diagnostic_float_win = nil end end, })
 
        vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335 guifg=#abb2bf]])
   '';
