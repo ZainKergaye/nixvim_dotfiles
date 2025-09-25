@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   plugins = {
     lsp = {
       enable = true;
@@ -55,14 +54,6 @@
 
        vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335 guifg=#abb2bf]])
   '';
-
-  # vim.cmd([[
-  #   autocmd BufLeave * lua for _, win in ipairs(vim.api.nvim_list_wins()) do
-  # 	    if vim.api.nvim_win_get_config(win).relative ~= '\' then
-  # 	      vim.api.nvim_win_close(win, true)
-  #     end
-  #   end
-  # ]])
   keymaps = [
     {
       key = "<leader>fm";
