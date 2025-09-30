@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   plugins = {
     treesitter = {
       enable = true;
@@ -61,25 +61,8 @@
       ];
     };
 
-    noice.enable = true; # popup cmd prompt
+    noice.enable = true;
 
     web-devicons.enable = true;
-    # Was forced to define this. Telescope, nvim-tree,
-    # alpha, and bufferline use this already.
   };
-  extraPlugins = [
-    (pkgs.vimUtils.buildVimPlugin {
-      # TODO: Add to nixvim plugins
-      name = "beacon";
-      src = pkgs.fetchFromGitHub {
-        owner = "DanilaMihailov";
-        repo = "beacon.nvim";
-        rev = "v2.0.0";
-        hash = "sha256-w5uhTVYRgkVCbJ5wrNTKs8bwSpH+4REAr9gaZrbknH8=";
-      };
-    })
-  ];
-  extraConfigLua = ''
-    require('beacon').setup()
-  '';
 }

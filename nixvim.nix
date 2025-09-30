@@ -62,6 +62,14 @@
             "UNEEDED"
           ];
         };
+        "IMPORTANT" = {
+          icon = " ";
+          color = "warning";
+          alt = [
+            "LOOK"
+            "CONFUSED"
+          ];
+        };
         "DEBUG" = {
           icon = " ";
           color = "#FF5747";

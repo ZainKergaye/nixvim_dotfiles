@@ -5,6 +5,6 @@
     #./kotlin.nix
     ./c.nix
     ./lua.nix
-		./markdown.nix
+    ./markdown.nix
   ];
 }
