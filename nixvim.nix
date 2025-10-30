@@ -1,4 +1,5 @@
-{ ... }: {
+{ system, ... }:
+{
   imports = [
     ./mappings.nix
     ./lsp.nix
@@ -28,7 +29,7 @@
     showbreak = "󰘍 ";
   };
 
-  clipboard.providers.wl-copy.enable = true;
+  clipboard.providers.wl-copy.enable = if (system == "x64_86-linux") then true else false;
 
   colorschemes.catppuccin = {
     enable = true;

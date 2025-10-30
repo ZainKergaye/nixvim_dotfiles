@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   extraPackages = with pkgs; [
     dotnetCorePackages.dotnet_8.sdk
     csharpier
