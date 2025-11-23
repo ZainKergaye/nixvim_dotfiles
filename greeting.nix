@@ -1,8 +1,9 @@
-{ ... }: {
+{ ... }:
+{
   plugins = {
     alpha = {
       enable = true;
-      layout = [
+      settings.layout = [
         # {
         #   type = "padding";
         #   val = 2;
@@ -141,7 +142,7 @@
         }
       ];
     };
-    illuminate.filetypesDenylist = [ "alpha" ];
+    illuminate.settings.filetypes_denylist = [ "alpha" ];
     lualine.settings.options.disabled_filetypes = {
       statusline = [ "alpha" ];
       winbar = [ "alpha" ];

@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   plugins = {
     treesitter = {
       enable = true;
@@ -50,7 +51,7 @@
 
     illuminate = {
       enable = true; # Used to illuminate same words
-      filetypesDenylist = [
+      settings.filetypes_denylist = [
         "adoc"
         "asciidoc"
         "dirvish"
