@@ -17,6 +17,7 @@
       ./lua.nix
       ./markdown.nix
       ./nix.nix
+      ./arduino.nix
     ]
     ++ darwin-undefined;
 }
