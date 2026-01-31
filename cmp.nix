@@ -41,8 +41,8 @@
       enable = true;
       enableLspFormat = true;
       sources.formatting = {
-        prettier.enable = true;
-        prettierd.enable = true;
+        #prettier.enable = true;
+        #prettierd.enable = true;
         stylua.enable = true;
       };
     };
@@ -75,9 +75,9 @@
   ];
 
   extraPackages = with pkgs; [
-    alejandra
+    #alejandra
     nixpkgs-fmt
-    prettierd
+    #prettierd
     nixfmt-classic
     stylua
     vimPlugins.luasnip
