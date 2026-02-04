@@ -79,7 +79,7 @@
     alejandra
     nixpkgs-fmt
     prettierd
-    nixfmt-classic
+    nixfmt
     stylua
     vimPlugins.luasnip
   ];
