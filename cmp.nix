@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   plugins = {
     lspkind.enable = true; # Icons for CMP
 
@@ -75,9 +76,9 @@
   ];
 
   extraPackages = with pkgs; [
-    #alejandra
+    alejandra
     nixpkgs-fmt
-    #prettierd
+    prettierd
     nixfmt-classic
     stylua
     vimPlugins.luasnip

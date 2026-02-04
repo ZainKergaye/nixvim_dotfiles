@@ -13,10 +13,10 @@
           [ ];
     in
     [
-				#./c.nix
-      #./lua.nix
-      #./markdown.nix
-      #./nix.nix
+      ./c.nix
+      ./lua.nix
+      ./markdown.nix
+      ./nix.nix
       #./arduino.nix
     ]
     ++ darwin-undefined;
