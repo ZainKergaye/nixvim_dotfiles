@@ -5,12 +5,14 @@
       let
         cpkgs =
           # cland-tools version 11
-          import (builtins.fetchGit {
-            name = "old-2019-pkgs";
-            url = "https://github.com/NixOS/nixpkgs/";
-            ref = "refs/heads/nixpkgs-unstable";
-            rev = "5c1ffb7a9fc96f2d64ed3523c2bdd379bdb7b471";
-          }) { inherit system; };
+          import
+            (builtins.fetchGit {
+              name = "old-2019-pkgs";
+              url = "https://github.com/NixOS/nixpkgs/";
+              ref = "refs/heads/nixpkgs-unstable";
+              rev = "5c1ffb7a9fc96f2d64ed3523c2bdd379bdb7b471";
+            })
+            { inherit system; };
 
         myPkg = pkgs.clang-tools;
       in
@@ -25,7 +27,11 @@
           "--query-driver=${pkgs.gcc-arm-embedded}/bin/arm-none-eabi-*"
         ];
       };
-    none-ls.sources.formatting.clang_format.enable = true;
+
+    none-ls.sources.formatting = {
+      clang_format.enable = true;
+      cmake_format.enable = true;
+    };
 
     dap-lldb = {
       enable = true;
