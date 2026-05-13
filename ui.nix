@@ -6,6 +6,8 @@
       settings.indent.enable = true;
     };
 
+    smear-cursor.enable = true;
+
     gitsigns = {
       enable = true;
       settings.signs = {
