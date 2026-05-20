@@ -31,11 +31,12 @@
 
   clipboard.providers.wl-copy.enable = if (system == "x64_86-linux") then true else false;
 
-  colorschemes.catppuccin = {
-    enable = true;
-    settings.flavour = "mocha";
-    # settings.flavour = "latte";
-  };
+  # colorschemes.catppuccin = {
+  #   enable = true;
+  #   settings.flavour = "mocha";
+  #   # settings.flavour = "latte";
+  # };
+  colorschemes.bamboo.enable = true;
 
   plugins = {
     todo-comments = {

@@ -47,7 +47,6 @@
           ignore = false;
         };
         renderer = {
-          # TODO: Fix this
           highlight_git = true;
           root_folder_label = false;
           indent_markers = {
@@ -60,13 +59,13 @@
           };
           icons = {
             glyphs = {
-              default = "󰈚 ";
+              default = " ";
               folder = {
-                default = " ";
-                empty = " ";
-                empty_open = " ";
-                open = " ";
-                symlink = " ";
+                default = "󰉋 ";
+                empty = "󱧵 ";
+                empty_open = "󰷏 ";
+                open = "󰝰 ";
+                symlink = "󱧯 ";
               };
               git = {
                 unmerged = "";
