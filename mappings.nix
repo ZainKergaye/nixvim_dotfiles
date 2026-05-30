@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   keymaps = [
     {
       key = "<esc>";
@@ -308,6 +309,18 @@
       {
         __unkeyed-1 = "<Leader>gcc";
         desc = "Comment line";
+      }
+      {
+        __unkeyed-1 = "<Leader>f";
+        desc = "File options";
+      }
+      {
+        __unkeyed-1 = "<Leader>r";
+        desc = "Misc options";
+      }
+      {
+        __unkeyed-1 = "<Leader>t";
+        desc = "Misc options";
       }
     ];
   };
