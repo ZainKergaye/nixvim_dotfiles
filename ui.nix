@@ -39,7 +39,11 @@
 
     notify = {
       enable = true;
-      settings.render = "minimal";
+      settings = {
+        render = "compact";
+        max_width = 40;
+      };
+
     };
 
     colorizer = {
