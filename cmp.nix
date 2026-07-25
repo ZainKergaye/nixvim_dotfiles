@@ -81,6 +81,7 @@
     prettierd
     nixfmt
     stylua
-    vimPlugins.luasnip
   ];
+
+  extraPlugins = [ pkgs.vimPlugins.luasnip ];
 }
