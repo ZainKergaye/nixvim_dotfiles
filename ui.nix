@@ -35,7 +35,20 @@
       };
     };
 
-    telescope.enable = true;
+    telescope = {
+      enable = true;
+      settings.file_ignore_patterns = [
+        "^.git/"
+        "^.mypy_cache/"
+        "^__pycache__/"
+        "^output/"
+        "^data/"
+        "%.ipynb"
+        "build/"
+        "lib/"
+        "result/"
+      ];
+    };
 
     notify = {
       enable = true;
