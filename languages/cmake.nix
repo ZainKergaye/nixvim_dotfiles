@@ -1,5 +1,6 @@
 { ... }: {
   # cmake config from https://nix-community.github.io/nixvim/plugins/cmake-tools/settings/index.html
+  plugins.lsp.servers.cmake.enable = true;
   plugins.cmake-tools = {
     enable = true;
     settings = {

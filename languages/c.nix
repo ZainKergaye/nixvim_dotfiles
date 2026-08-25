@@ -1,5 +1,4 @@
 {
-  system,
   pkgs,
   lib,
   ...
@@ -15,6 +14,7 @@
         "--clang-tidy"
         "--header-insertion=never"
         "--query-driver=${pkgs.gcc-arm-embedded}/bin/arm-none-eabi-*"
+        "--compile-commands-dir=result"
       ];
     };
 
