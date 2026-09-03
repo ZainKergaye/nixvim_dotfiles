@@ -1,4 +1,4 @@
-{ system, ... }:
+{ system, lib, ... }:
 {
   imports = [
     ./mappings.nix
@@ -9,10 +9,17 @@
     ./window.nix
     ./cmp.nix
     ./languages
+    ./codex.nix
   ];
 
   viAlias = true;
   vimAlias = true;
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "codex.nvim"
+    ];
 
   # Performance
   performance = {

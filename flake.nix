@@ -2,11 +2,9 @@
   description = "A nixvim configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.flake-parts.follows = "flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
@@ -15,7 +13,6 @@
     {
       nixvim,
       flake-parts,
-      nixpkgs,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -47,7 +44,6 @@
             # Lets you run `nix run .` to start nixvim
             default = nvim;
           };
-          formatter = nixpkgs.legacyPackages.${system}.nixfmt;
         };
     };
 }
