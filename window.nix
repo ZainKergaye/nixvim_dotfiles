@@ -91,4 +91,27 @@
       };
     }
   ];
+
+  extraConfigLua = ''
+    local nvim_tree_menu_group = vim.api.nvim_create_augroup("NvimTreeContextMenu", { clear = true })
+
+    vim.api.nvim_create_autocmd("MenuPopup", {
+      group = nvim_tree_menu_group,
+      pattern = "n",
+      callback = function()
+        vim.cmd([[silent! aunmenu PopUp.Open\ elsewhere]])
+
+        if vim.bo.filetype ~= "NvimTree" then
+          return
+        end
+
+        local api = require("nvim-tree.api")
+        local node = api.tree.get_node_under_cursor()
+        if node and node.type == "file" then
+          vim.cmd([[nnoremenu <silent> 1.05 PopUp.Open\ elsewhere <Cmd>lua require("nvim-tree.api").node.run.system()<CR>]])
+        end
+      end,
+    })
+  '';
+
 }
