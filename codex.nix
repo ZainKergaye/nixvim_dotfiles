@@ -1,5 +1,9 @@
 { pkgs, ... }: {
-  plugins.codex.enable = true;
+  plugins.codex = {
+    enable = true;
+    settings.border = "rounded";
+
+  };
 
   keymaps = [
     {
