@@ -42,7 +42,7 @@
           val = [
             {
               on_press = {
-                __raw = "function() vim.cmd[[colorscheme catppuccin-latte]] end";
+                __raw = "function() vim.cmd[[colorscheme bamboo-light]] end";
               };
               opts = {
                 shortcut = "";
