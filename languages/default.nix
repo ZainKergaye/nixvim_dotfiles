@@ -17,6 +17,7 @@
       ./lua.nix
       ./markdown.nix
       ./nix.nix
+      ./ruby.nix
       # ./latex.nix
       ./cmake.nix
       #./arduino.nix

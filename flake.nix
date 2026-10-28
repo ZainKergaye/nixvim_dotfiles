@@ -6,6 +6,11 @@
       url = "github:nix-community/nixvim";
       inputs.flake-parts.follows = "flake-parts";
     };
+    # `panel` support has not yet been released in nixpkgs' codex.nvim package.
+    codex-nvim = {
+      url = "github:johnseth97/codex.nvim/e1149cbc875ff71ee21f8832b9fe815a270442b3";
+      flake = false;
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
@@ -30,7 +35,7 @@
           nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
             module = import ./nixvim.nix;
-            extraSpecialArgs = { inherit system; };
+            extraSpecialArgs = { inherit system inputs; };
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;
         in

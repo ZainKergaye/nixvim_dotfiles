@@ -19,6 +19,7 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       "codex.nvim"
+      "copilot-language-server"
     ];
 
   # Performance
