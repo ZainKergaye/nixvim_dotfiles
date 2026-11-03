@@ -18,6 +18,7 @@
       ./markdown.nix
       ./nix.nix
       ./ruby.nix
+      ./typescript.nix
       # ./latex.nix
       ./cmake.nix
       #./arduino.nix
