@@ -4,6 +4,22 @@
       enable = true;
       settings = {
         options.theme = "auto";
+        sections.lualine_b = [
+          {
+            __unkeyed-1 = "branch";
+            # Long branch names crowd out the rest of the statusline
+            fmt.__raw = ''
+              function(str)
+                if vim.fn.strchars(str) > 10 then
+                  return vim.fn.strcharpart(str, 0, 10) .. "…"
+                end
+                return str
+              end
+            '';
+          }
+          "diff"
+          "diagnostics"
+        ];
         extensions = [
           "nvim-dap-ui"
           "nvim-tree"
