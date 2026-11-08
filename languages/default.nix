@@ -19,6 +19,7 @@
       ./nix.nix
       ./ruby.nix
       ./typescript.nix
+      ./scss.nix
       # ./latex.nix
       ./cmake.nix
       #./arduino.nix

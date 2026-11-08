@@ -14,6 +14,15 @@
       dockerls.enable = true;
     };
 
+    neotest = {
+      enable = true;
+      # Call jest directly: `npm test` in some projects also runs e2e suites.
+      adapters.jest = {
+        enable = true;
+        settings.jestCommand = "npx jest";
+      };
+    };
+
     # prettierd uses the project's local prettier + prettier-plugin-tailwindcss.
     none-ls.sources.formatting.prettierd = {
       enable = true;
