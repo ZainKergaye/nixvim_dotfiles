@@ -248,6 +248,13 @@
     }
 
     {
+      key = "<Leader>fs";
+      action = "<cmd> Telescope git_status <CR>";
+      mode = "n";
+      options.desc = "Telescope git status";
+    }
+
+    {
       key = "<Leader>tn";
       action = "<cmd> Telescope notify <CR>";
       mode = "n";
