@@ -4,6 +4,7 @@
 import json
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 
 def source(locked):
@@ -18,8 +19,19 @@ def source(locked):
 
 
 def revision(locked):
-    # Keep full hashes: shortening an SRI hash to 'sha256-' loses its identity.
-    return locked.get("rev") or locked.get("narHash") or locked.get("ref") or "—"
+    rev = locked.get("rev")
+    if rev:
+        short = rev[:8]
+        kind = locked.get("type")
+        if kind in {"github", "gitlab", "sourcehut"}:
+            route = "/-/tree/" if kind == "gitlab" else "/tree/"
+            return f"[{short}]({source(locked)}{route}{quote(rev, safe='')})"
+        return short
+    nar_hash = locked.get("narHash")
+    if nar_hash:
+        algorithm, separator, digest = nar_hash.partition("-")
+        return f"{algorithm}{separator}{digest[:8]}{'…' if len(digest) > 8 else ''}"
+    return locked.get("ref") or "—"
 
 
 def cell(value):
