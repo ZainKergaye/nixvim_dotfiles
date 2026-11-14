@@ -18,6 +18,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Test lock-file summary
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+
       # -------------------------------------------------
       # 3️⃣ Install Nix + magic‑nix‑cache
       # -------------------------------------------------

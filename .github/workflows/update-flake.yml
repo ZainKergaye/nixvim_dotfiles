@@ -26,7 +26,6 @@ jobs:
         uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.APP_ID }}
-          client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.FLAKE_UPDATE_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
           repositories: |
@@ -40,6 +39,9 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
+
+      - name: Test lock-file summary
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
 
       # -------------------------------------------------
       # 3️⃣ Install Nix + magic‑nix‑cache
@@ -69,15 +71,15 @@ jobs:
         run: |
           set -euo pipefail
 
-          mkdir -p $HOME/.config/nix
+          mkdir -p "$HOME/.config/nix"
           # The token is sent as an *access‑token* for github.com.
           # Nix will add the header “Authorization: Bearer <token>”.
-          cat <<EOF >> $HOME/.config/nix/nix.conf
+          cat <<EOF >> "$HOME/.config/nix/nix.conf"
           access-tokens = github.com=${{ steps.app-token.outputs.token }}
           EOF
 
           echo "Running nix flake update…"
-          cp flake.lock flake.lock.before
+          cp flake.lock "$RUNNER_TEMP/flake.lock.before"
 
           # retry with exponential back‑off (same logic you had)
           MAX_RETRIES=5
@@ -97,10 +99,10 @@ jobs:
           done
 
           # Detect whether anything changed
-          if diff -q flake.lock flake.lock.before > /dev/null; then
-            echo "changed=false" >> $GITHUB_OUTPUT
+          if diff -q flake.lock "$RUNNER_TEMP/flake.lock.before" > /dev/null; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       # -------------------------------------------------
@@ -109,12 +111,8 @@ jobs:
       - name: Build test configurations
         if: steps.flake-update.outputs.changed == 'true'
         run: |
-          echo "🔧  Building package…"
-          nix build .# --show-trace --no-link || {
-              echo "❌  Build failed"
-              exit 1
-            }
-          echo "✅  All builds succeeded"
+          nix flake check --all-systems --no-build --no-update-lock-file
+          nix build .# .#checks.x86_64-linux.default --show-trace --no-link --no-update-lock-file
 
       # -------------------------------------------------
       # 8️⃣ Generate a nice markdown summary (table)
@@ -124,42 +122,14 @@ jobs:
         id: summary
         run: |
           set -euo pipefail
-          nix flake metadata --json > meta.json
+          python3 .github/scripts/flake-update-summary.py \
+            "$RUNNER_TEMP/flake.lock.before" flake.lock > "$RUNNER_TEMP/summary.md"
+
           {
-            printf "| Input | Old rev | New rev | Source |\n"
-            printf "|-------|----------|----------|--------|\n"
-          } > summary.md
-
-          jq -r '
-            .locks.nodes |
-            to_entries[] |
-            select(.value.locked.type != null) |
-            {
-              name: .key,
-              old: (
-                    if .value.locked.prev.rev != null then .value.locked.prev.rev
-                    elif .value.locked.prev.narHash != null then .value.locked.prev.narHash
-                    else "—"
-                    end
-                  ) | .[0:7],
-              new: (
-                    if .value.locked.rev != null then .value.locked.rev
-                    elif .value.locked.narHash != null then .value.locked.narHash
-                    else "—"
-                    end
-                  ) | .[0:7],
-              url: (
-                    if .value.locked.url != null then .value.locked.url
-                    else "—"
-                    end
-                  )
-            } |
-            "\(.name) | \(.old) | \(.new) | \(.url)"
-          ' meta.json >> summary.md
-
-          echo "summary<<EOF" >> $GITHUB_OUTPUT
-          cat summary.md >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+            echo "summary<<EOF"
+            cat "$RUNNER_TEMP/summary.md"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       # -------------------------------------------------
       # 9️⃣ Create the Pull Request (custom body)
@@ -183,7 +153,8 @@ jobs:
             ${{ steps.summary.outputs.summary }}
 
             ### ✅ Testing status
-            All configurations build successfully.
+            All supported platforms evaluated successfully; the x86_64 Linux
+            package build and Nixvim startup check passed.
 
             ### 📋 Review checklist
             - [ ] Verify the changes in `flake.lock`
@@ -206,4 +177,3 @@ jobs:
         if: steps.flake-update.outputs.changed == 'true'
         run: |
           echo "✅ PR created – it will be merged automatically once required checks pass."
-
