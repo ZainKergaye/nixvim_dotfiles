@@ -1,16 +1,21 @@
-{ system, ... }:
+{ lib, system, ... }:
 {
   imports =
     let
       darwin-undefined =
-        if (system == "x64_86-linux") then
+        if lib.hasSuffix "-linux" system then
           [
-            #./verilog.nix
             #./csharp.nix
             #./kotlin.nix
           ]
         else
           [ ];
+      # Keep Verible on platforms with dependency hashes in the pinned package.
+      verible-supported = lib.optionals (builtins.elem system [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ]) [ ./systemverilog-verible.nix ];
     in
     [
       ./c.nix
@@ -20,9 +25,11 @@
       ./ruby.nix
       ./typescript.nix
       ./scss.nix
+      ./systemverilog.nix
       # ./latex.nix
       ./cmake.nix
       #./arduino.nix
     ]
-    ++ darwin-undefined;
+    ++ darwin-undefined
+    ++ verible-supported;
 }

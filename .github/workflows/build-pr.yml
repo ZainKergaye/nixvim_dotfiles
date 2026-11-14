@@ -1,37 +1,25 @@
 name: Build
 
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
 
 permissions:
   contents: read
-  pull-requests: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # -------------------------------------------------
-      # 1️⃣ Generate a short‑lived GitHub‑App token
-      # -------------------------------------------------
-      - name: Generate GitHub App Token
-        id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          client-id: ${{ vars.APP_CLIENT_ID }}
-          private-key: ${{ secrets.FLAKE_UPDATE_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-          repositories: |
-            nixosdotfiles
-
-      # -------------------------------------------------
-      # 2️⃣ Checkout repository (uses the token)
-      # -------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
+
+      - name: Test lock-file summary
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
 
       # -------------------------------------------------
       # 3️⃣ Install Nix + magic‑nix‑cache
@@ -50,17 +38,8 @@ jobs:
           name: zain-system-cache
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-      # -------------------------------------------------
-      # Build & test the new configuration
-      # -------------------------------------------------
+      - name: Evaluate supported platforms
+        run: nix flake check --all-systems --no-build --no-update-lock-file
+
       - name: Build test configurations
-        run: |
-          echo "🔧  Building test packages…"
-          nix build .# \
-            --show-trace --no-link || {
-              echo "❌  Build failed"
-              exit 1
-            }
-          echo "✅  All builds succeeded"
-
-
+        run: nix build .# .#checks.x86_64-linux.default --show-trace --no-link --no-update-lock-file

@@ -20,6 +20,27 @@ current project. Add the LSP and its Rails extension to each Rails application:
 bundle add ruby-lsp ruby-lsp-rails --group development
 ```
 
+## SystemVerilog
+
+`.sv` and `.svh` files use the `systemverilog` filetype. The
+[Verilog/SystemVerilog Vim plugin](https://github.com/vhda/verilog_systemverilog.vim)
+provides syntax, indentation, compiler error formats, and instance/port navigation.
+`vim-matchup` adds `%` navigation between matching block keywords.
+
+[Verible](https://github.com/chipsalliance/verible) provides LSP diagnostics,
+navigation, and formatting on Linux and Apple Silicon macOS. Use `<leader>fm`
+to format or `<leader>tf` to toggle format-on-save. Project-specific lint rules
+can go in `.rules.verible_lint`; the default SystemVerilog rules remain enabled.
+Supported systems are x86_64 Linux, aarch64 Linux, and Apple Silicon macOS.
+Platform-specific tooling imports are selected in `languages/default.nix`.
+
+For tags-based completion and `:VerilogFollowInstance` / `:VerilogFollowPort`,
+generate project tags with the bundled Universal Ctags:
+
+```sh
+ctags -R --extras=+q --fields=+i -n .
+```
+
 ## Debugging an ARM board with OpenOCD
 
 The `Debug ARM C` DAP profile connects Nixpkgs GDB (which includes GDB's DAP
